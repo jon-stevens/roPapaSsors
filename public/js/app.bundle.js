@@ -43756,80 +43756,96 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	function GameCtrl($timeout, $document) {
-	    var _this = this;
 
-	    this.moves = { 1: 'rock', 2: 'paper', 3: 'scissors' };
-	    this.gameStarted = false;
-	    this.buttonText = 'play';
-	    this.userMove = '';
-	    this.browserMove = '';
-	    this.browserScore = 0;
-	    this.userScore = 0;
-	    this.showBrowserMove = function () {
-	        return _this.moves[_this.browserMove];
-	    };
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	    this.statuses = {
-	        USER_WIN: 'win',
-	        BROWSER_WIN: 'lose',
-	        DRAW: 'draw!'
-	    };
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	    this.gameFinished = null;
+	var GameCtrl = function () {
+	    function GameCtrl($timeout) {
+	        _classCallCheck(this, GameCtrl);
 
-	    this.startGame = function () {
-	        _this.gameStarted = true;
-	        _this.status = 'GO GO GO GO';
-	        _this.userMove = '';
-	        _this.browserMove = '';
-	        _this.gameFinished = null;
-	    };
+	        this.$timeout = $timeout;
 
-	    this.isMove = function (move, playerMove) {
-	        return move === playerMove;
-	    };
+	        this.moves = { 1: 'rock', 2: 'paper', 3: 'scissors' };
+	        this.gameStarted = false;
+	        this.buttonText = 'play';
+	        this.userMove = '';
+	        this.browserMove = '';
+	        this.browserScore = 0;
+	        this.userScore = 0;
 
-	    this.makeMove = function (move) {
-	        if (_this.gameStarted === false) {
-	            _this.startGame();
-	        } else {
-	            _this.userMove = move;
-	            _this.makeBrowserMove();
-	        }
-	    };
-
-	    this.makeBrowserMove = function () {
-	        var randInt = function randInt() {
-	            return Math.floor(Math.random() * (4 - 1)) + 1;
+	        this.statuses = {
+	            USER_WIN: 'win',
+	            BROWSER_WIN: 'lose',
+	            DRAW: 'draw!'
 	        };
-	        $timeout(function () {
-	            _this.browserMove = randInt();
-	            _this.status = _this.calculateWinner(_this.userMove, _this.browserMove);
-	        }, 50);
-	    };
+	        this.gameFinished = null;
+	    }
 
-	    this.calculateWinner = function (u, b) {
-	        _this.gameFinished = true;
-	        _this.gameStarted = false;
-
-	        if (u === b) {
-	            return _this.statuses.DRAW;
+	    _createClass(GameCtrl, [{
+	        key: 'startGame',
+	        value: function startGame() {
+	            this.gameStarted = true;
+	            this.status = 'GO GO GO GO';
+	            this.userMove = '';
+	            this.browserMove = '';
+	            this.gameFinished = null;
 	        }
-
-	        if (u === 1 && b === 2 || u === 2 && b === 3 || u === 3 && b === 1) {
-	            _this.browserScore++;
-	            return _this.statuses.BROWSER_WIN;
+	    }, {
+	        key: 'isMove',
+	        value: function isMove(move, playerMove) {
+	            return move === playerMove;
 	        }
-
-	        if (u === 1 && b === 3 || u === 2 && b === 1 || u === 3 && b === 2) {
-	            _this.userScore++;
-	            return _this.statuses.USER_WIN;
+	    }, {
+	        key: 'makeMove',
+	        value: function makeMove(move) {
+	            if (this.gameStarted === false) {
+	                this.startGame();
+	            } else {
+	                this.userMove = move;
+	                this.makeBrowserMove();
+	            }
 	        }
-	    };
-	}
+	    }, {
+	        key: 'makeBrowserMove',
+	        value: function makeBrowserMove() {
+	            var _this = this;
 
-	GameCtrl.$inject = ['$timeout', '$document'];
+	            var randInt = function randInt() {
+	                return Math.floor(Math.random() * (4 - 1)) + 1;
+	            };
+	            this.$timeout(function () {
+	                _this.browserMove = randInt();
+	                _this.status = _this.calculateWinner(_this.userMove, _this.browserMove);
+	            }, 50);
+	        }
+	    }, {
+	        key: 'calculateWinner',
+	        value: function calculateWinner(u, b) {
+	            this.gameFinished = true;
+	            this.gameStarted = false;
+
+	            if (u === b) {
+	                return this.statuses.DRAW;
+	            }
+
+	            if (u === 1 && b === 2 || u === 2 && b === 3 || u === 3 && b === 1) {
+	                this.browserScore++;
+	                return this.statuses.BROWSER_WIN;
+	            }
+
+	            if (u === 1 && b === 3 || u === 2 && b === 1 || u === 3 && b === 2) {
+	                this.userScore++;
+	                return this.statuses.USER_WIN;
+	            }
+	        }
+	    }]);
+
+	    return GameCtrl;
+	}();
+
+	GameCtrl.$inject = ['$timeout'];
 
 	exports.default = GameCtrl;
 

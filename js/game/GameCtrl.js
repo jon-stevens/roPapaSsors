@@ -1,37 +1,38 @@
 'use strict';
 
-function GameCtrl($timeout, $document) {
+class GameCtrl {
 
-    this.moves = {1:'rock', 2:'paper', 3:'scissors'};
-    this.gameStarted = false;
-    this.buttonText = `play`;
-    this.userMove = '';
-    this.browserMove = '';
-    this.browserScore = 0;
-    this.userScore = 0;
-    this.showBrowserMove = () => { return this.moves[this.browserMove]};
+    constructor($timeout) {
+        this.$timeout = $timeout;
+        this.moves = {1:'rock', 2:'paper', 3:'scissors'};
+        this.gameStarted = false;
+        this.buttonText = `play`;
+        this.userMove = '';
+        this.browserMove = '';
+        this.browserScore = 0;
+        this.userScore = 0;
 
-    this.statuses = {
-        USER_WIN: 'win',
-        BROWSER_WIN: 'lose',
-        DRAW: 'draw!'
-    };
+        this.statuses = {
+            USER_WIN: 'win',
+            BROWSER_WIN: 'lose',
+            DRAW: 'draw!'
+        };
+        this.gameFinished = null;
+    }
 
-    this.gameFinished = null;
-
-    this.startGame = () => {
+    startGame() {
         this.gameStarted = true;
         this.status = 'GO GO GO GO';
         this.userMove = '';
         this.browserMove = '';
         this.gameFinished = null;
-    };
+    }
 
-    this.isMove = (move, playerMove) => {
+    isMove(move, playerMove) {
         return move === playerMove;
-    };
+    }
 
-    this.makeMove = (move) => {
+    makeMove(move) {
         if (this.gameStarted === false) {
             this.startGame();
         } else {
@@ -40,15 +41,15 @@ function GameCtrl($timeout, $document) {
         }
     };
 
-    this.makeBrowserMove = () => {
+    makeBrowserMove() {
         let randInt = () => { return Math.floor(Math.random() * (4 - 1)) + 1 };
-        $timeout(() => {
+        this.$timeout(() => {
             this.browserMove = randInt();
             this.status = this.calculateWinner(this.userMove, this.browserMove);
         }, 50);
     };
 
-    this.calculateWinner = (u, b) => {
+    calculateWinner(u, b) {
             this.gameFinished = true;
             this.gameStarted = false;
 
@@ -65,6 +66,6 @@ function GameCtrl($timeout, $document) {
     }
 }
 
-GameCtrl.$inject = ['$timeout', '$document'];
+GameCtrl.$inject = ['$timeout'];
 
 export default GameCtrl;
