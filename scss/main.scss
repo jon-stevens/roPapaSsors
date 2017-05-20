@@ -1,0 +1,135 @@
+$mq-breakpoints: (
+        mobile:  320px,
+        tablet:  740px,
+        desktop: 980px,
+        wide:    1300px
+);
+
+$primaryColor: #ccc;
+
+@import '../node_modules/sass-mq/_mq';
+
+
+body {
+  text-align: center;
+  color: $primaryColor;
+  margin: 0;
+}
+
+.game-result {
+  font-size: 24px;
+}
+
+.start-button {
+  padding: 10px 25px;
+  border: 0;
+  background: #eee;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  border-radius: 3px;
+  margin: 20px 0;
+}
+
+
+.game-moves {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: relative;
+
+  &:after {
+    content: "";
+    opacity: 0.3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  &.lose {
+    &:after {
+      background: url('../images/lose.jpg') no-repeat;
+    }
+  }
+
+  &.win {
+    &:after {
+      background: url('../images/win.jpg') no-repeat;
+    }
+  }
+}
+
+.game-moves__browser,
+.game-moves__user {
+  display: flex;
+  flex-direction:column;
+}
+
+.game-moves__browser {
+  transform: scaleX(-1);
+}
+
+
+.game-moves__user__move,
+.game-moves__browser__move {
+  text-align: center;
+  padding: 15px 25px;
+  background: url('../images/moves.png') no-repeat;
+  transition: all 0.4s;
+  height: 42px;
+  width: 86px;
+  background-size:100%;
+  opacity: 0.6;
+
+  &.rock {
+    background-position: 0 6px;
+  }
+
+  &.paper {
+    background-position: -8px -136px;
+  }
+
+  &.scissors {
+    background-position: -13px -58px;
+  }
+
+  @include mq($from:tablet) {
+    height: 84px;
+    width: 172px;
+
+
+    &.rock {
+      background-position: 0 6px;
+    }
+
+    &.paper {
+      background-position: 6px -220px;
+    }
+
+    &.scissors {
+      background-position: 0 -102px;
+    }
+  }
+
+  &.moved {
+    transform: translateX(50%);
+    opacity: 1;
+    .game-moves__browser__move & {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+.game-moves__user__move {
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+.game-status {
+  text-align: center;
+  font-size:20px;
+  margin: 20px 0 0 0;
+}

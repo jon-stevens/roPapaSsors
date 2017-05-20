@@ -1,0 +1,22 @@
+<div data-r-comp="userScore">You: {{ctrl.userScore}}</div>
+<div data-r-comp="browserScore">Browser: {{ctrl.browserScore}}</div>
+
+<div data-r-comp="status" class="game-status" ng-if="ctrl.status">You {{ctrl.status}}!</div>
+
+<div class="game-moves" data-r-class="game-moves">
+    <div class="game-moves__user" ng-show="ctrl.gameStarted || ctrl.userMove">
+        <span ng-click="ctrl.makeMove(1)" ng-class="{moved: ctrl.isMove(1, ctrl.userMove)}" class="game-moves__user__move {{ctrl.moves[1]}}" data-r-move='rock'></span>
+        <span ng-click="ctrl.makeMove(2)" ng-class="{moved: ctrl.isMove(2, ctrl.userMove)}" class="game-moves__user__move {{ctrl.moves[2]}}" data-r-move='paper'></span>
+        <span ng-click="ctrl.makeMove(3)" ng-class="{moved: ctrl.isMove(3, ctrl.userMove)}" class="game-moves__user__move {{ctrl.moves[3]}}" data-r-move='scissors'></span>
+    </div>
+
+    <div class="game-moves__browser" ng-show="ctrl.gameStarted || ctrl.browserMove">
+        <span ng-class="{moved: ctrl.isMove(1, ctrl.browserMove)}" class="game-moves__browser__move {{ctrl.moves[1]}}"></span>
+        <span ng-class="{moved: ctrl.isMove(2, ctrl.browserMove)}" class="game-moves__browser__move {{ctrl.moves[2]}}"></span>
+        <span ng-class="{moved: ctrl.isMove(3, ctrl.browserMove)}" class="game-moves__browser__move {{ctrl.moves[3]}}"></span>
+    </div>
+</div>
+
+<button class="start-button" ng-if="!ctrl.gameStarted" ng-click="ctrl.startGame()">
+    {{ctrl.buttonText}} <span ng-if="ctrl.gameFinished">again</span>
+</button>
