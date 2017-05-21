@@ -1,13 +1,13 @@
 to run:
-  npm i && npm start
+  npm start (run `npm install` first time)
 
-to build css/js
-  npm run css
-  npm run js
+build
+  `npm run css`
+  `npm run js`
 
 watch
-  npm run watch-css
+  `npm run watch-css`
 
-run tests -
-  npm test
+run tests
+  `npm test`
 

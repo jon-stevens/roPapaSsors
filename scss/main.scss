@@ -1,3 +1,5 @@
+@import '../node_modules/sass-mq/_mq';
+
 $mq-breakpoints: (
         mobile:  320px,
         tablet:  740px,
@@ -6,9 +8,6 @@ $mq-breakpoints: (
 );
 
 $primaryColor: #ccc;
-
-@import '../node_modules/sass-mq/_mq';
-
 
 body {
   text-align: center;
@@ -67,6 +66,10 @@ body {
 }
 
 .game-moves__browser {
+  -webkit-transform: scaleX(-1);
+  -moz-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
   transform: scaleX(-1);
 }
 

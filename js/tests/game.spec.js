@@ -8,26 +8,13 @@ describe('functional tests', () => {
         loadModule(gameApp);
     });
 
-    it('should show start button', inject(() => {
-        // given:
-        let $element = compileDirective(`<game-start></game-start>`);
-
-        // then:
-        expect($element.find('button')).toExist();
-        expect($element.find('button')).toHaveClass('start-button ng-binding ng-scope');
-        expect($element.find('button')).toHaveText('play');
-    }));
-
-
-    it('clicking start button will show moves', inject(() => {
+    it('clicking start button will show all user moves', inject(() => {
         // given:
         let $element = compileDirective(`<game-start></game-start>`);
 
         // then:
         let $startButton = $element.find('button');
         $startButton.triggerHandler('click');
-
-        let $moves = $element.find('div');
 
         let userMoves = $element.$find('[data-r-class="game-moves"]');
         let rockMove = $element.$find('[data-r-move="rock"]');
@@ -43,7 +30,7 @@ describe('functional tests', () => {
 
     }));
 
-    it('clicking a move will make move and trigger opponent move', inject(() => {
+    it('clicking a move will make move and then trigger opponent move', inject(() => {
         // given:
         let $element = compileDirective(`<game-start></game-start>`);
 
@@ -56,8 +43,8 @@ describe('functional tests', () => {
 
         expect(rockMove).toHaveClass('moved');
 
-        let userMoves = $element.$find('[data-r-class="game-moves"]');
-        expect(userMoves).toExist();
+        let browserMoves = $element.$find('[data-r-class="browser-moves"]');
+        expect(browserMoves).toExist();
 
     }));
 
